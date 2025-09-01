@@ -7115,3 +7115,243 @@ input[type="range"]::-moz-range-progress { height: 6px; background: var(--accent
     border: 1px solid rgba(0,0,0,0.08);
     box-shadow: 0 10px 28px rgba(0,0,0,0.18);
 }
+/* =========================================================
+   EOS / Draevyn Theme — non-breaking overrides
+   Paste at the VERY END of your stylesheet.
+   Keeps your existing structure; mostly variable remaps.
+   ======================================================= */
+
+/* ---- Core palette (centralized) ---- */
+:root{
+  /* Brand tokens */
+  --eos-bg:        #0b0f14;
+  --eos-bg-2:      #101826;
+  --eos-panel:     #121925;
+  --eos-border:    #243041;
+  --eos-text:      #e6edf3;
+  --eos-muted:     #9fb1c6;
+  --eos-accent:    #47b3ff;  /* primary */
+  --eos-accent-2:  #8a6bff;  /* secondary */
+  --eos-ok:        #4cd964;
+  --eos-warn:      #ffcc00;
+  --eos-danger:    #ff5e57;
+
+  /* Map to your existing variables so components “just work” */
+  --background-color:        var(--eos-bg);
+  --dark-background-color:   #060a12;
+  --container-color:         var(--eos-panel);
+  --button-color:            #182233;
+  --blue-accent:             var(--eos-accent);
+  --green-accent:            #1f6b63;
+  --light-grey:              #cfd6df;
+  --near-black:              var(--eos-bg);
+
+  /* Links (normal mode) */
+  --a-link:      var(--eos-accent);
+  --a-visited:   var(--eos-accent);
+  --a-hover:     #5cc0ff;
+  --a-focus:     #5cc0ff;
+  --a-active:    #2f96e2;
+
+  /* Links (dark sections you already use) */
+  --a-dark-link:    #bfe4ff;
+  --a-dark-visited: #bfe4ff;
+  --a-dark-hover:   #9fd7ff;
+  --a-dark-focus:   #9fd7ff;
+  --a-dark-active:  #79c7ff;
+
+  /* Sub-areas like director/infoblob (kept light for readability) */
+  --a-lighter-link:   #9ed0e1;
+  --a-lighter-visited:#9ed0e1;
+  --a-lighter-hover:  #8acee4;
+  --a-lighter-focus:  #8acee4;
+  --a-lighter-active: #89d5ee;
+
+  /* Discord-ish greys retuned slightly cooler to match EOS */
+  --discord-grey-0:#0f141d;
+  --discord-grey-1:#141b27;
+  --discord-grey-2:#162130;
+  --discord-grey-3:#1b2838;
+  --discord-grey-4:#1e2c3f;
+  --discord-grey-5:#223247;
+  --discord-grey-6:#2a3b52;
+  --discord-grey-7:#31445e; /* primary */
+  --discord-grey-8:#4d5b73;
+
+  --discord-text:     var(--eos-text);
+
+  /* Keep your existing status colors but nudge */
+  --darktheme-lightgreen:#17a089;
+}
+
+/* Respect user dark-mode; your CSS already toggles --color-mode.
+   We enrich colors when dark is active. */
+@media (prefers-color-scheme: dark){
+  :root{
+    --background-color:      var(--eos-bg);
+    --container-color:       var(--eos-panel);
+  }
+}
+
+/* ---- Global text & surface tweaks (safe) ---- */
+body {
+  color: var(--eos-text);
+  background-color: var(--background-color);
+}
+body.darktheme{
+  background-color: var(--eos-bg);
+}
+
+/* Panels / cards on the landing grid */
+.column {
+  background: var(--eos-panel);
+  border: 1px solid var(--eos-border);
+  color: var(--eos-text);
+}
+.column>h2 { color: var(--eos-text); }
+
+/* Info blocks & small cards */
+.infoblob,
+.whitetheme .infoblob { 
+  background: transparent;
+  color: var(--eos-text);
+}
+
+/* Footer/version area (you have .credits) */
+.credits {
+  color: var(--eos-muted);
+}
+.credits > a,
+.credits > a:visited {
+  color: var(--eos-accent);
+}
+
+/* Inputs & selects—keep shapes, improve contrast */
+input, select, textarea {
+  background: #0f1520;
+  color: var(--eos-text);
+  border: 1px solid var(--eos-border);
+}
+
+/* Primary CTA feel without touching your logic buttons */
+button, .button, .btn, .gobutton, .gowebcam {
+  border-radius: 10px;
+  border: 1px solid var(--eos-border);
+  background: #182233;
+  color: var(--eos-text);
+}
+button:hover, .button:hover, .btn:hover,
+.gobutton:hover, .gowebcam:hover {
+  filter: none;
+  background: #203048;
+}
+
+/* Your semantic color buttons still work; make them EOS-friendly */
+.green { background-color: var(--eos-ok) !important; color: #04110a !important; }
+.red   { background-color: var(--eos-danger) !important; }
+.blue  { background-color: var(--eos-accent) !important; color:#001018 !important; }
+.brown { background-color: #b8892c !important; }
+
+/* Link chips */
+a.soloLink:link, a.soloLink:visited {
+  color: #bee6ff;
+  background: linear-gradient(180deg, #0f1a26 0%, #0b121b 100%);
+  border: 1px solid var(--eos-border);
+}
+
+/* Header bar */
+#header{
+  background: rgba(9,14,22,.7);
+  border-bottom: 1px solid var(--eos-border);
+}
+#head6,#head7,#head5,#head4 { color: var(--eos-text); }
+.whitetheme #head4 { color: var(--eos-text); } /* keep consistent */
+
+/* Progress + meters tuned to EOS colors */
+#progressContainer { background-color: #28415cbb; }
+#progressBar { background-color: #2cc36b99; }
+
+/* Toggle/focus outlines for accessibility */
+:focus-visible {
+  outline: 2px solid var(--eos-accent-2);
+  outline-offset: 2px;
+}
+
+/* Scrollbars (chromium/webkit) */
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 16px rgba(123,167,214,1);
+  border: solid 3px transparent;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 13px rgba(0,0,0,.5);
+}
+
+/* Landing tiles’ icons: keep your SVGs, just soften bg */
+#container-1,#container-2,#container-3,#container-3a,#container-4,#container-5 {
+  background-color: rgba(255,255,255,0.02);
+  border: 1px solid var(--eos-border);
+  border-radius: 12px;
+}
+
+/* Chat module colors */
+#chatModule {
+  background: #0f1520;
+  border-color: var(--eos-border);
+}
+.chat-header { background: #152033; }
+
+/* Sub-control bar refinement */
+#subControlButtons {
+  background-color: var(--discord-grey-0);
+  border: 1px solid var(--eos-border);
+}
+#subControlButtons div,
+#subControlButtons span button {
+  background-color: var(--discord-grey-1);
+}
+#subControlButtons div:hover {
+  background-color: var(--discord-grey-3);
+}
+
+/* Notifications / states */
+.onair      { box-shadow: inset 0 0 max(10vw,10vh) var(--eos-ok); }
+.recording  { box-shadow: inset 0 0 max(10vw,10vh) var(--eos-danger); }
+.ondeck     { box-shadow: inset 0 0 max(10vw,10vh) var(--eos-warn); color: #1b1b1b !important; }
+
+/* Optional gradient utility for headers or CTA stripes */
+.eos-gradient {
+  background-image: linear-gradient(90deg, var(--eos-accent), var(--eos-accent-2));
+}
+
+/* Optional: brand pill for labels without altering your layout */
+.label, .labelSmall {
+  background-color: #0a111b;
+  border: 1px solid var(--eos-border);
+  color: var(--eos-text);
+}
+
+/* Give the big play overlay a brand feel but preserve your sizing */
+#bigPlayButton {
+  text-shadow: 0.05em 0.05em 0 rgba(0,0,0,.9);
+  background: radial-gradient(90vh 90vh at 50% 20%, rgba(71,179,255,.12), rgba(0,0,0,0));
+}
+#bigPlayButton > .playButton {
+  background-color: #273246;
+  border-color: #273246;
+}
+
+/* Keep video placeholder BG subtle in EOS palette */
+#miniPerformer > video, #miniPerformer > canvas {
+  background-color: #1a2230 !important;
+}
+
+/* Slightly soften borders on various popups so they match theme */
+.popup-message,
+.context-menu,
+.modal-content,
+#slotpicker {
+  border-color: var(--eos-border) !important;
+  box-shadow: 0 10px 30px rgba(7,12,20,.45) !important;
+}
+
+/* ---- End EOS overrides ---- */
