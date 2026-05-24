@@ -33,12 +33,14 @@ const updateList = [
     "eu",
     "nl",
     "pig",
+    "pl",
     "pt",
     "pt-br",
     "ru",
     "tr",
     "uk",
-    "ar"
+    "ar",
+    "hi"
 ];
 
 // Initialize DOM selectors and defaults
