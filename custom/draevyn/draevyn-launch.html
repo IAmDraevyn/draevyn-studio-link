@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Draevyn Studio Link</title>
+
+  <style>
+    :root {
+      --bg: #070a0f;
+      --panel: #101722;
+      --panel-soft: #141d2b;
+      --border: #263248;
+      --text: #e8eefc;
+      --muted: #95a3ba;
+      --accent: #26d8ff;
+      --accent-2: #85f7c2;
+      --danger: #ff526d;
+      --gold: #ffd166;
+      --radius: 22px;
+      --shadow: 0 18px 45px rgba(0,0,0,.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(38,216,255,.14), transparent 34%),
+        radial-gradient(circle at top right, rgba(133,247,194,.08), transparent 34%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      padding: 22px;
+    }
+
+    .shell {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(20,29,43,.96), rgba(9,14,22,.96));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(20px, 4vw, 42px);
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 7vw, 84px);
+      line-height: .95;
+      letter-spacing: -.04em;
+    }
+
+    .subtitle {
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.55;
+      margin: 18px 0 0;
+    }
+
+    .room-panel {
+      margin-top: 18px;
+      border: 1px solid var(--border);
+      background: rgba(16,23,34,.88);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      min-height: 46px;
+      color: var(--text);
+      background: #0a101a;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font: inherit;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(38,216,255,.12);
+    }
+
+    button, .button {
+      min-height: 46px;
+      border: 1px solid var(--border);
+      background: #172236;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+
+    button:hover, .button:hover {
+      border-color: var(--accent);
+      background: #1b2a43;
+    }
+
+    button:active, .button:active {
+      transform: translateY(1px);
+    }
+
+    .primary {
+      background: linear-gradient(180deg, #0e8fb0, #096c88);
+      border-color: #2bdcff;
+      color: #eaffff;
+    }
+
+    .grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: rgba(16,23,34,.88);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0 0 16px;
+    }
+
+    .button-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .note {
+      margin-top: 18px;
+      border: 1px dashed var(--border);
+      background: rgba(9,15,24,.88);
+      border-radius: var(--radius);
+      padding: 16px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    code {
+      color: var(--accent-2);
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .room-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="eyebrow">Draevyn Studio Link</div>
+      <h1>Secure creator feeds, guest links, and OBS-ready outputs.</h1>
+      <p class="subtitle">
+        A Draevyn-customized streaming link hub built from your VDO.Ninja fork.
+        Use this page as the control-friendly starting point for your personal streaming workflow.
+      </p>
+
+      <div class="room-panel">
+        <div>
+          <label for="roomName">Room / Session Name</label>
+          <input id="roomName" type="text" value="draevyn-studio" />
+        </div>
+        <button class="primary" onclick="saveRoom()">Set Room</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div>
+          <h2>Host / Director</h2>
+          <p>
+            Open the director/control view for managing guests, feeds, and the production flow.
+          </p>
+        </div>
+        <div class="button-row">
+          <button class="primary" onclick="openDirector()">Open Director</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>Guest Link</h2>
+          <p>
+            Generate or open the guest entry flow for remote camera/audio guests.
+          </p>
+        </div>
+        <div class="button-row">
+          <button onclick="openGuest()">Open Guest Entry</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>OBS Output</h2>
+          <p>
+            Open a clean OBS-friendly view for capturing feeds, scenes, or outputs.
+          </p>
+        </div>
+        <div class="button-row">
+          <button onclick="openOBS()">Open OBS View</button>
+          <button onclick="openClean()">Open Clean Output</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>Device Check</h2>
+          <p>
+            Test camera, mic, permissions, and browser readiness before going live.
+          </p>
+        </div>
+        <div class="button-row">
+          <button onclick="openDeviceCheck()">Open Device Check</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>Dock / Utility</h2>
+          <p>
+            Open dock-style helper pages or utility views for creator workflow testing.
+          </p>
+        </div>
+        <div class="button-row">
+          <button onclick="openDock()">Open Dock</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>Notes</h2>
+          <p>
+            Keep this page as your custom front door while preserving the original app underneath.
+          </p>
+        </div>
+        <div class="button-row">
+          <button onclick="copyGuestLink()">Copy Guest Link</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="note">
+      <strong>Workflow rule:</strong>
+      this launcher is your custom shell. The original files still exist underneath.
+      We customize flow here first, then only modify core files when necessary.
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "draevynStudioLink.room";
+
+    function getRoom() {
+      return localStorage.getItem(STORAGE_KEY) || document.getElementById("roomName").value.trim() || "draevyn-studio";
+    }
+
+    function saveRoom() {
+      const value = document.getElementById("roomName").value.trim() || "draevyn-studio";
+      localStorage.setItem(STORAGE_KEY, value);
+      alert(`Room set to: ${value}`);
+    }
+
+    function roomQuery(extra = "") {
+      const room = encodeURIComponent(getRoom());
+      return `?room=${room}${extra}`;
+    }
+
+    function openPage(path, extra = "") {
+      window.open(`../../${path}${roomQuery(extra)}`, "_blank");
+    }
+
+    function openDirector() {
+      openPage("director.html");
+    }
+
+    function openGuest() {
+      openPage("index.html");
+    }
+
+    function openOBS() {
+      openPage("obs.html");
+    }
+
+    function openClean() {
+      openPage("cleanoutput.html");
+    }
+
+    function openDeviceCheck() {
+      openPage("devices.html");
+    }
+
+    function openDock() {
+      openPage("dock.html");
+    }
+
+    async function copyGuestLink() {
+      const url = new URL(`../../index.html${roomQuery()}`, window.location.href).href;
+      await navigator.clipboard.writeText(url);
+      alert("Guest link copied.");
+    }
+
+    document.getElementById("roomName").value = getRoom();
+  </script>
+</body>
+</html>
