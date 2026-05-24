@@ -18,13 +18,11 @@
       --accent-2: #85f7c2;
       --danger: #ff526d;
       --gold: #ffd166;
-      --radius: 22px;
+      --radius: 20px;
       --shadow: 0 18px 45px rgba(0,0,0,.35);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -35,26 +33,29 @@
         var(--bg);
       color: var(--text);
       font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
-      padding: 22px;
+      padding: 18px;
     }
 
     .shell {
-      width: min(1200px, 100%);
+      width: min(1280px, 100%);
       margin: 0 auto;
     }
 
-    .hero {
+    .hero, .card, .note {
       border: 1px solid var(--border);
       background: linear-gradient(180deg, rgba(20,29,43,.96), rgba(9,14,22,.96));
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: clamp(20px, 4vw, 42px);
+    }
+
+    .hero {
+      padding: clamp(18px, 3vw, 30px);
     }
 
     .eyebrow {
       color: var(--accent-2);
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing: .16em;
       text-transform: uppercase;
       margin-bottom: 10px;
@@ -62,28 +63,29 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(36px, 7vw, 84px);
-      line-height: .95;
+      max-width: 980px;
+      font-size: clamp(30px, 5vw, 60px);
+      line-height: 1.02;
       letter-spacing: -.04em;
     }
 
     .subtitle {
-      max-width: 850px;
+      max-width: 880px;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.55;
-      margin: 18px 0 0;
+      margin: 14px 0 0;
     }
 
     .room-panel {
-      margin-top: 18px;
+      margin-top: 16px;
       border: 1px solid var(--border);
-      background: rgba(16,23,34,.88);
-      border-radius: var(--radius);
-      padding: 18px;
+      background: rgba(8,13,21,.76);
+      border-radius: 16px;
+      padding: 14px;
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 12px;
+      gap: 10px;
       align-items: end;
     }
 
@@ -99,7 +101,7 @@
 
     input {
       width: 100%;
-      min-height: 46px;
+      min-height: 44px;
       color: var(--text);
       background: #0a101a;
       border: 1px solid var(--border);
@@ -115,12 +117,12 @@
     }
 
     button, .button {
-      min-height: 46px;
+      min-height: 42px;
       border: 1px solid var(--border);
       background: #172236;
       color: var(--text);
       border-radius: 14px;
-      padding: 11px 14px;
+      padding: 10px 12px;
       font: inherit;
       font-weight: 900;
       cursor: pointer;
@@ -128,16 +130,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      text-align: center;
     }
 
     button:hover, .button:hover {
       border-color: var(--accent);
       background: #1b2a43;
-    }
-
-    button:active, .button:active {
-      transform: translateY(1px);
     }
 
     .primary {
@@ -147,19 +145,15 @@
     }
 
     .grid {
-      margin-top: 18px;
+      margin-top: 14px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      gap: 12px;
     }
 
     .card {
-      border: 1px solid var(--border);
-      background: rgba(16,23,34,.88);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      min-height: 210px;
+      padding: 16px;
+      min-height: 168px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -167,13 +161,14 @@
 
     .card h2 {
       margin: 0 0 8px;
-      font-size: 24px;
+      font-size: 23px;
+      line-height: 1.1;
     }
 
     .card p {
       color: var(--muted);
-      line-height: 1.5;
-      margin: 0 0 16px;
+      line-height: 1.45;
+      margin: 0 0 14px;
     }
 
     .button-row {
@@ -182,27 +177,18 @@
     }
 
     .note {
-      margin-top: 18px;
-      border: 1px dashed var(--border);
-      background: rgba(9,15,24,.88);
-      border-radius: var(--radius);
-      padding: 16px;
+      margin-top: 14px;
+      padding: 14px;
       color: var(--muted);
       line-height: 1.55;
+      background: rgba(9,15,24,.88);
+      box-shadow: none;
     }
 
-    code {
-      color: var(--accent-2);
-    }
+    code { color: var(--accent-2); }
 
-    @media (max-width: 900px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .room-panel {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 920px) {
+      .grid, .room-panel { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -211,16 +197,16 @@
   <main class="shell">
     <section class="hero">
       <div class="eyebrow">Draevyn Studio Link</div>
-      <h1>Secure creator feeds, guest links, and OBS-ready outputs.</h1>
+      <h1>Secure creator feeds, guest links, prompts, and OBS-ready outputs.</h1>
       <p class="subtitle">
         A Draevyn-customized streaming link hub built from your VDO.Ninja fork.
-        Use this page as the control-friendly starting point for your personal streaming workflow.
+        Use this as the production-friendly starting point for guests, OBS captures, device checks, and prompt timing.
       </p>
 
       <div class="room-panel">
         <div>
-          <label for="roomName">Room / Session Name</label>
-          <input id="roomName" type="text" value="draevyn-studio" />
+          <label for="roomName">Room / Session ID — letters and numbers only</label>
+          <input id="roomName" type="text" value="draevynstudio" />
         </div>
         <button class="primary" onclick="saveRoom()">Set Room</button>
       </div>
@@ -230,46 +216,54 @@
       <article class="card">
         <div>
           <h2>Host / Director</h2>
-          <p>
-            Open the director/control view for managing guests, feeds, and the production flow.
-          </p>
+          <p>Open the director/control room for managing guests, feeds, and production flow.</p>
         </div>
         <div class="button-row">
           <button class="primary" onclick="openDirector()">Open Director</button>
+          <button onclick="openDirectorWithPrompter()">Director + Embedded Prompter</button>
+          <button onclick="copyDirectorLink()">Copy Director Link</button>
         </div>
       </article>
 
       <article class="card">
         <div>
           <h2>Guest Link</h2>
-          <p>
-            Generate or open the guest entry flow for remote camera/audio guests.
-          </p>
+          <p>Open or copy the guest entry flow for remote camera/audio guests.</p>
         </div>
         <div class="button-row">
           <button onclick="openGuest()">Open Guest Entry</button>
+          <button onclick="openGuestWithPrompter()">Guest + Embedded Prompter</button>
+          <button onclick="copyGuestLink()">Copy Guest Link</button>
         </div>
       </article>
 
       <article class="card">
         <div>
           <h2>OBS Output</h2>
-          <p>
-            Open a clean OBS-friendly view for capturing feeds, scenes, or outputs.
-          </p>
+          <p>Open OBS/browser-source views for capturing scenes and clean feeds.</p>
         </div>
         <div class="button-row">
-          <button onclick="openOBS()">Open OBS View</button>
-          <button onclick="openClean()">Open Clean Output</button>
+          <button onclick="openOBS()">Open OBS Scene</button>
+          <button onclick="copyOBSSceneLink()">Copy OBS Scene Link</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>AEROS Prompter</h2>
+          <p>Open the full teleprompter add-on for scripts, reading controls, fullscreen, and .aeroscript workflows.</p>
+        </div>
+        <div class="button-row">
+          <button class="primary" onclick="openAerosPrompterHost()">Open Host Prompter</button>
+          <button onclick="copyGuestPrompterLink()">Copy Guest Prompter Link</button>
+          <button onclick="openPromptHost()">Open Cue Board</button>
         </div>
       </article>
 
       <article class="card">
         <div>
           <h2>Device Check</h2>
-          <p>
-            Test camera, mic, permissions, and browser readiness before going live.
-          </p>
+          <p>Test camera, mic, permissions, and browser readiness before going live.</p>
         </div>
         <div class="button-row">
           <button onclick="openDeviceCheck()">Open Device Check</button>
@@ -279,88 +273,154 @@
       <article class="card">
         <div>
           <h2>Dock / Utility</h2>
-          <p>
-            Open dock-style helper pages or utility views for creator workflow testing.
-          </p>
+          <p>Open dock-style helper pages or utility views for creator workflow testing.</p>
         </div>
         <div class="button-row">
           <button onclick="openDock()">Open Dock</button>
-        </div>
-      </article>
-
-      <article class="card">
-        <div>
-          <h2>Notes</h2>
-          <p>
-            Keep this page as your custom front door while preserving the original app underneath.
-          </p>
-        </div>
-        <div class="button-row">
-          <button onclick="copyGuestLink()">Copy Guest Link</button>
+          <button onclick="copyAllLinks()">Copy All Core Links</button>
         </div>
       </article>
     </section>
 
     <section class="note">
       <strong>Workflow rule:</strong>
-      this launcher is your custom shell. The original files still exist underneath.
-      We customize flow here first, then only modify core files when necessary.
+      this launcher is the Draevyn shell. VDO remains the engine underneath.
+      Free builds keep AEROS attribution visible. Creator/Pro/Studio remove or white-label it according to tier rules. Developer Full can simulate tiers for testing.
     </section>
   </main>
 
   <script>
     const STORAGE_KEY = "draevynStudioLink.room";
 
+    function sanitizeRoomName(value) {
+      return String(value || "")
+        .trim()
+        .replace(/[^a-zA-Z0-9]/g, "") || "draevynstudio";
+    }
+
     function getRoom() {
-      return localStorage.getItem(STORAGE_KEY) || document.getElementById("roomName").value.trim() || "draevyn-studio";
+      const input = document.getElementById("roomName")?.value;
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return sanitizeRoomName(input || saved || "draevynstudio");
     }
 
     function saveRoom() {
-      const value = document.getElementById("roomName").value.trim() || "draevyn-studio";
-      localStorage.setItem(STORAGE_KEY, value);
-      alert(`Room set to: ${value}`);
+      const rawValue = document.getElementById("roomName").value;
+      const cleanValue = sanitizeRoomName(rawValue);
+
+      document.getElementById("roomName").value = cleanValue;
+      localStorage.setItem(STORAGE_KEY, cleanValue);
+
+      if (rawValue !== cleanValue) {
+        alert(`Room cleaned for VDO compatibility:\\n${rawValue} → ${cleanValue}`);
+      } else {
+        alert(`Room set to: ${cleanValue}`);
+      }
     }
 
-    function roomQuery(extra = "") {
-      const room = encodeURIComponent(getRoom());
-      return `?room=${room}${extra}`;
+    function encodedRoom() {
+      return encodeURIComponent(getRoom());
     }
 
-    function openPage(path, extra = "") {
-      window.open(`../../${path}${roomQuery(extra)}`, "_blank");
+    function rootUrl(path, query = "") {
+      const suffix = query ? `?${query}` : "";
+      return new URL(`../../${path}${suffix}`, window.location.href).href;
+    }
+
+    function promptUrl(role = "guest") {
+      return new URL(`./draevyn-prompt-board.html?room=${encodedRoom()}&role=${encodeURIComponent(role)}`, window.location.href).href;
+    }
+
+    function aerosPrompterUrl(role = "host") {
+      return new URL(`./aeros-prompter/index.html?room=${encodedRoom()}&role=${encodeURIComponent(role)}`, window.location.href).href;
+    }
+
+    function openUrl(url) {
+      window.open(url, "_blank");
     }
 
     function openDirector() {
-      openPage("director.html");
+      openUrl(rootUrl("index.html", `director=${encodedRoom()}`));
+    }
+
+    function openDirectorWithPrompter() {
+      openUrl(rootUrl("index.html", `director=${encodedRoom()}&openprompter=1`));
     }
 
     function openGuest() {
-      openPage("index.html");
+      openUrl(rootUrl("index.html", `room=${encodedRoom()}`));
+    }
+
+    function openGuestWithPrompter() {
+      openUrl(rootUrl("index.html", `room=${encodedRoom()}&openprompter=1`));
     }
 
     function openOBS() {
-      openPage("obs.html");
-    }
-
-    function openClean() {
-      openPage("cleanoutput.html");
+      openUrl(rootUrl("index.html", `scene&room=${encodedRoom()}`));
     }
 
     function openDeviceCheck() {
-      openPage("devices.html");
+      openUrl(rootUrl("devices.html", `room=${encodedRoom()}`));
     }
 
     function openDock() {
-      openPage("dock.html");
+      openUrl(rootUrl("dock.html", `room=${encodedRoom()}`));
     }
 
-    async function copyGuestLink() {
-      const url = new URL(`../../index.html${roomQuery()}`, window.location.href).href;
-      await navigator.clipboard.writeText(url);
-      alert("Guest link copied.");
+    function openPromptHost() {
+      openUrl(promptUrl("host"));
+    }
+
+    function openAerosPrompterHost() {
+      openUrl(aerosPrompterUrl("host"));
+    }
+
+    async function copyText(text, label) {
+      await navigator.clipboard.writeText(text);
+      alert(`${label} copied.`);
+    }
+
+    function copyGuestLink() {
+      copyText(rootUrl("index.html", `room=${encodedRoom()}`), "Guest link");
+    }
+
+    function copyDirectorLink() {
+      copyText(rootUrl("index.html", `director=${encodedRoom()}`), "Director link");
+    }
+
+    function copyOBSSceneLink() {
+      copyText(rootUrl("index.html", `scene&room=${encodedRoom()}`), "OBS scene link");
+    }
+
+    function copyGuestPromptLink() {
+      copyText(promptUrl("guest"), "Guest cue board link");
+    }
+
+    function copyGuestPrompterLink() {
+      copyText(aerosPrompterUrl("guest"), "Guest AEROS prompter link");
+    }
+
+    function copyAllLinks() {
+      const links = [
+        `Room: ${getRoom()}`,
+        `Director: ${rootUrl("index.html", `director=${encodedRoom()}`)}`,
+        `Director + Embedded Prompter: ${rootUrl("index.html", `director=${encodedRoom()}&openprompter=1`)}`,
+        `Guest: ${rootUrl("index.html", `room=${encodedRoom()}`)}`,
+        `Guest + Embedded Prompter: ${rootUrl("index.html", `room=${encodedRoom()}&openprompter=1`)}`,
+        `OBS Scene: ${rootUrl("index.html", `scene&room=${encodedRoom()}`)}`,
+        `Device Check: ${rootUrl("devices.html", `room=${encodedRoom()}`)}`,
+        `Dock: ${rootUrl("dock.html", `room=${encodedRoom()}`)}`,
+        `Cue Board Host: ${promptUrl("host")}`,
+        `Cue Board Guest: ${promptUrl("guest")}`,
+        `AEROS Prompter Host: ${aerosPrompterUrl("host")}`,
+        `AEROS Prompter Guest: ${aerosPrompterUrl("guest")}`
+      ].join("\n");
+
+      copyText(links, "All core links");
     }
 
     document.getElementById("roomName").value = getRoom();
   </script>
+  <script src="./draevyn-tier-config.js"></script>
 </body>
 </html>

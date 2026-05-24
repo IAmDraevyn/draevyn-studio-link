@@ -1,0 +1,428 @@
+/* Draevyn Studio Link — VDO UI Theme Layer
+   Pass 01: improve readability, spacing, cards, forms, controls, and page identity.
+   This is CSS-first and intentionally avoids hiding core VDO controls.
+*/
+
+:root {
+  --dsl-bg: #070a0f;
+  --dsl-bg-deep: #03060a;
+  --dsl-bg-soft: #0b111c;
+  --dsl-panel: #101722;
+  --dsl-panel-2: #141d2b;
+  --dsl-panel-3: #192438;
+  --dsl-border: #263248;
+  --dsl-border-bright: rgba(38,216,255,.32);
+  --dsl-text: #e8eefc;
+  --dsl-muted: #95a3ba;
+  --dsl-accent: #26d8ff;
+  --dsl-accent-2: #85f7c2;
+  --dsl-danger: #ff526d;
+  --dsl-warning: #ffd166;
+  --dsl-radius: 18px;
+  --dsl-radius-sm: 12px;
+  --dsl-shadow: 0 18px 45px rgba(0,0,0,.35);
+}
+
+/* Base UI pages */
+html.dsl-ui-page,
+html.dsl-ui-page body {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(38,216,255,.12), transparent 34%),
+    radial-gradient(circle at top right, rgba(133,247,194,.07), transparent 34%),
+    var(--dsl-bg) !important;
+  color: var(--dsl-text) !important;
+  font-family: Inter, Segoe UI, Roboto, Arial, sans-serif !important;
+}
+
+/* Keep OBS/output pages cleaner */
+html.dsl-output-page .dsl-top-ribbon,
+html.dsl-output-page .dsl-workflow-strip,
+html.dsl-output-page .dsl-page-helper {
+  display: none !important;
+}
+
+/* Top identity ribbon */
+html.dsl-ui-page .dsl-top-ribbon {
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+  min-height: 46px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(38,216,255,.20);
+  background: rgba(7,10,15,.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.24);
+}
+
+.dsl-brand {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dsl-brand strong {
+  color: var(--dsl-accent-2);
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 950;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.dsl-brand span {
+  color: var(--dsl-muted);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.dsl-ribbon-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.dsl-room-chip,
+.dsl-mode-chip,
+.dsl-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  border: 1px solid var(--dsl-border);
+  background: var(--dsl-bg-soft);
+  color: var(--dsl-text);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.dsl-room-chip b {
+  color: var(--dsl-accent);
+}
+
+.dsl-link-button {
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.dsl-link-button:hover {
+  border-color: var(--dsl-accent);
+  background: #142235;
+}
+
+/* Replace/soften original header */
+html.dsl-ui-page #header {
+  min-height: 44px !important;
+  background: rgba(10,16,26,.88) !important;
+  border-bottom: 1px solid rgba(38,216,255,.16) !important;
+  color: var(--dsl-text) !important;
+  box-shadow: none !important;
+}
+
+html.dsl-ui-page #logoname {
+  color: var(--dsl-accent-2) !important;
+  font-weight: 950 !important;
+  letter-spacing: .08em !important;
+}
+
+html.dsl-ui-page #qos {
+  color: var(--dsl-accent) !important;
+}
+
+html.dsl-ui-page #head1 input,
+html.dsl-ui-page #head1a input,
+html.dsl-ui-page #joinroomID,
+html.dsl-ui-page #joinbyURL {
+  background: #090f18 !important;
+  color: var(--dsl-text) !important;
+  border: 1px solid var(--dsl-border) !important;
+  border-radius: 10px !important;
+  min-height: 34px;
+  padding: 6px 10px !important;
+}
+
+html.dsl-ui-page #jumptoroomButton,
+html.dsl-ui-page #head1 button,
+html.dsl-ui-page #head1a button {
+  background: linear-gradient(180deg, #0e8fb0, #096c88) !important;
+  color: #eaffff !important;
+  border: 1px solid #2bdcff !important;
+  border-radius: 10px !important;
+  min-height: 34px;
+  font-weight: 900 !important;
+}
+
+/* Main landing / guest entry cards */
+html.dsl-ui-page #mainmenu.row {
+  width: min(1320px, calc(100vw - 28px)) !important;
+  margin: 18px auto !important;
+  gap: 16px !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+}
+
+html.dsl-ui-page #mainmenu .column,
+html.dsl-ui-page #mainmenu .card,
+html.dsl-ui-page .column.card {
+  background:
+    linear-gradient(180deg, rgba(20,29,43,.96), rgba(9,14,22,.96)) !important;
+  border: 1px solid var(--dsl-border) !important;
+  border-radius: var(--dsl-radius) !important;
+  box-shadow: var(--dsl-shadow) !important;
+  color: var(--dsl-text) !important;
+}
+
+html.dsl-ui-page #mainmenu .column h2,
+html.dsl-ui-page #mainmenu .card h2,
+html.dsl-ui-page .column.card h2 {
+  color: var(--dsl-text) !important;
+  font-size: clamp(20px, 2.2vw, 32px) !important;
+  line-height: 1.1 !important;
+  letter-spacing: -.02em;
+  margin: 14px 12px 8px !important;
+}
+
+html.dsl-ui-page .container-inner {
+  color: var(--dsl-muted) !important;
+  line-height: 1.5 !important;
+}
+
+html.dsl-ui-page .section,
+html.dsl-ui-page .roomnotes,
+html.dsl-ui-page .info-box,
+html.dsl-ui-page .startupWarning,
+html.dsl-ui-page .cameraTip {
+  border: 1px solid var(--dsl-border) !important;
+  background: rgba(11,18,29,.88) !important;
+  color: var(--dsl-text) !important;
+  border-radius: var(--dsl-radius-sm) !important;
+}
+
+/* Inputs / forms */
+html.dsl-ui-page input,
+html.dsl-ui-page select,
+html.dsl-ui-page textarea {
+  background: #090f18 !important;
+  color: var(--dsl-text) !important;
+  border: 1px solid var(--dsl-border) !important;
+  border-radius: 10px !important;
+  outline: none !important;
+}
+
+html.dsl-ui-page input:focus,
+html.dsl-ui-page select:focus,
+html.dsl-ui-page textarea:focus {
+  border-color: var(--dsl-accent) !important;
+  box-shadow: 0 0 0 3px rgba(38,216,255,.12) !important;
+}
+
+html.dsl-ui-page label,
+html.dsl-ui-page th,
+html.dsl-ui-page td {
+  color: var(--dsl-text) !important;
+}
+
+/* Buttons */
+html.dsl-ui-page button,
+html.dsl-ui-page .gobutton,
+html.dsl-ui-page input[type="button"],
+html.dsl-ui-page input[type="submit"] {
+  border-radius: 12px !important;
+  border: 1px solid var(--dsl-border) !important;
+  background: #172236 !important;
+  color: var(--dsl-text) !important;
+  font-family: Inter, Segoe UI, Roboto, Arial, sans-serif !important;
+  font-weight: 900 !important;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease !important;
+}
+
+html.dsl-ui-page button:hover,
+html.dsl-ui-page .gobutton:hover,
+html.dsl-ui-page input[type="button"]:hover,
+html.dsl-ui-page input[type="submit"]:hover {
+  border-color: var(--dsl-accent) !important;
+  background: #1b2a43 !important;
+}
+
+html.dsl-ui-page .gowebcam,
+html.dsl-ui-page .mainScreenShareButton,
+html.dsl-ui-page button.gowebcam {
+  background: linear-gradient(180deg, #0e8fb0, #096c88) !important;
+  border-color: #2bdcff !important;
+  color: #eaffff !important;
+}
+
+/* Director / control room */
+html.dsl-ui-page.dsl-director #directorlayout,
+html.dsl-ui-page.dsl-director #control,
+html.dsl-ui-page.dsl-director #container-links,
+html.dsl-ui-page.dsl-director [id*="director"] {
+  color: var(--dsl-text);
+}
+
+html.dsl-ui-page.dsl-director .guest,
+html.dsl-ui-page.dsl-director .guestContainer,
+html.dsl-ui-page.dsl-director [id^="guest"] {
+  border-radius: var(--dsl-radius) !important;
+}
+
+/* Bottom control buttons */
+html.dsl-ui-page #controlButtons {
+  background: rgba(7,10,15,.60) !important;
+  border: 1px solid rgba(38,216,255,.14) !important;
+  border-radius: 18px !important;
+  backdrop-filter: blur(10px);
+  padding: 6px !important;
+}
+
+html.dsl-ui-page #controlButtons .float,
+html.dsl-ui-page #controlButtons .float2 {
+  background: #172236 !important;
+  border: 1px solid var(--dsl-border) !important;
+  color: var(--dsl-text) !important;
+  border-radius: 12px !important;
+}
+
+html.dsl-ui-page #controlButtons .float:hover,
+html.dsl-ui-page #controlButtons .float2:hover {
+  border-color: var(--dsl-accent) !important;
+}
+
+/* Device page */
+html.dsl-ui-page.dsl-devices #devices {
+  width: min(1120px, calc(100vw - 24px)) !important;
+  max-width: none !important;
+  margin: 14px auto 80px !important;
+}
+
+html.dsl-ui-page.dsl-devices .notice {
+  background: rgba(255,209,102,.12) !important;
+  border: 1px solid rgba(255,209,102,.35) !important;
+  color: #fff4cf !important;
+  border-radius: 16px !important;
+  margin: 12px 0 !important;
+}
+
+html.dsl-ui-page.dsl-devices h1 {
+  background: linear-gradient(180deg, #10233a, #0b1828) !important;
+  border: 1px solid var(--dsl-border) !important;
+  color: var(--dsl-accent-2) !important;
+  border-radius: 16px 16px 0 0 !important;
+  margin-top: 18px !important;
+}
+
+html.dsl-ui-page.dsl-devices .device {
+  background: rgba(16,23,34,.96) !important;
+  color: var(--dsl-text) !important;
+  border: 1px solid var(--dsl-border) !important;
+  border-radius: 14px !important;
+  padding: 12px !important;
+}
+
+html.dsl-ui-page.dsl-devices .device:hover {
+  border-color: var(--dsl-accent) !important;
+  background: rgba(25,36,56,.96) !important;
+}
+
+html.dsl-ui-page.dsl-devices .device.selected {
+  background: rgba(0,245,160,.16) !important;
+  border-color: rgba(0,245,160,.5) !important;
+}
+
+/* Dock page */
+html.dsl-ui-page.dsl-dock body {
+  transform: none !important;
+  width: auto !important;
+  overflow: auto !important;
+  white-space: normal !important;
+  padding: 10px !important;
+  background:
+    radial-gradient(circle at top left, rgba(38,216,255,.12), transparent 34%),
+    var(--dsl-bg) !important;
+}
+
+html.dsl-ui-page.dsl-dock #container-setup,
+html.dsl-ui-page.dsl-dock #container-links {
+  width: min(780px, calc(100vw - 24px)) !important;
+  min-height: auto !important;
+  margin: 14px auto !important;
+  padding: 16px !important;
+  border: 1px solid var(--dsl-border) !important;
+  background: rgba(16,23,34,.96) !important;
+  border-radius: var(--dsl-radius) !important;
+  box-shadow: var(--dsl-shadow) !important;
+}
+
+html.dsl-ui-page.dsl-dock .task {
+  width: 100% !important;
+  border: 1px solid var(--dsl-border) !important;
+  border-radius: 10px !important;
+  padding: 8px !important;
+  margin: 6px 0 !important;
+}
+
+/* Prompt helper block */
+.dsl-page-helper {
+  width: min(1320px, calc(100vw - 28px));
+  margin: 12px auto 0;
+  border: 1px solid var(--dsl-border);
+  background: rgba(11,18,29,.88);
+  border-radius: 16px;
+  padding: 10px 12px;
+  color: var(--dsl-muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.dsl-page-helper strong {
+  color: var(--dsl-accent-2);
+}
+
+.dsl-page-helper .dsl-helper-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Light dialogs that appear inside VDO */
+html.dsl-ui-page .modal,
+html.dsl-ui-page .popup,
+html.dsl-ui-page [role="dialog"],
+html.dsl-ui-page #warning,
+html.dsl-ui-page #message {
+  border-radius: 16px !important;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  html.dsl-ui-page .dsl-top-ribbon,
+  .dsl-page-helper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  html.dsl-ui-page #mainmenu.row {
+    width: calc(100vw - 16px) !important;
+    margin: 8px auto !important;
+  }
+
+  html.dsl-ui-page #mainmenu .column,
+  html.dsl-ui-page #mainmenu .card {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .dsl-ribbon-actions {
+    flex-wrap: wrap;
+  }
+}

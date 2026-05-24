@@ -1,6 +1,6 @@
 <html lang='en'>
 	<head>
-		<script type="text/javascript">
+<script type="text/javascript">
 			//  MS Internet Explorer must not be given a chance to fail before I can give the user an error message.
 			try {
 				var msie = window.navigator.userAgent.indexOf("MSIE ");
@@ -79,6 +79,16 @@
 		
 		<!-- Authentication styles -->
 		<link rel="stylesheet" href="auth-styles.css">
+
+		<!-- Draevyn Studio Link theme layer -->
+		<script>
+			(function () {
+				const params = new URLSearchParams(location.search);
+				const isOutput = params.has("scene") || params.has("view") || params.has("solo");
+				document.documentElement.classList.add(isOutput ? "dsl-output-page" : "dsl-ui-page");
+			})();
+		</script>
+		<link rel="stylesheet" href="./custom/draevyn/draevyn-vdo-theme.css">
 
 	</head>
 	<body id="main" class="main hidden" onload="main()">
@@ -3437,9 +3447,11 @@
 					})();
 				</script>
 
-		<script type="text/javascript" crossorigin="anonymous" id="lib-js" src="./lib.js?ver=1415"></script>
-		<script type="text/javascript" crossorigin="anonymous" id="main-js" src="./main.js?ver=1063"></script>
-		<script type="module" src="./podcast/bootstrap.js"></script>
-		
-	</body>
+<script type="text/javascript" crossorigin="anonymous" id="lib-js" src="./lib.js?ver=1415"></script>
+<script type="text/javascript" crossorigin="anonymous" id="main-js" src="./main.js?ver=1063"></script>
+<script type="module" src="./podcast/bootstrap.js"></script>
+		<!-- Draevyn Studio Link behavior patch -->
+		<script src="./custom/draevyn/draevyn-vdo-patch.js"></script>
+
+</body>
 </html>

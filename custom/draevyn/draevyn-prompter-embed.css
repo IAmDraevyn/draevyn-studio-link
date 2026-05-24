@@ -1,0 +1,204 @@
+/* Draevyn Studio Link — Embedded Prompter Panel
+   The panel lets host/guests view the AEROS prompter inside VDO pages.
+*/
+
+.dsl-prompter-toggle {
+  position: fixed;
+  right: 14px;
+  bottom: 82px;
+  z-index: 99998;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid rgba(38,216,255,.44);
+  background: linear-gradient(180deg, #0e8fb0, #096c88);
+  color: #eaffff;
+  border-radius: 999px;
+  font-weight: 950;
+  letter-spacing: .02em;
+  box-shadow: 0 14px 34px rgba(0,0,0,.35);
+  cursor: pointer;
+}
+
+.dsl-prompter-panel {
+  position: fixed;
+  top: 58px;
+  right: 12px;
+  bottom: 14px;
+  width: min(520px, calc(100vw - 24px));
+  z-index: 100000;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(38,216,255,.28);
+  background: rgba(7,10,15,.96);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.56);
+}
+
+body.dsl-prompter-open .dsl-prompter-panel {
+  display: flex;
+}
+
+body.dsl-prompter-open .dsl-prompter-toggle {
+  display: none;
+}
+
+.dsl-prompter-panel-header {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(38,216,255,.18);
+  background: rgba(11,18,29,.96);
+}
+
+.dsl-prompter-title {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dsl-prompter-title strong {
+  color: #85f7c2;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.dsl-prompter-title span {
+  color: #95a3ba;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dsl-prompter-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dsl-prompter-actions button,
+.dsl-prompter-actions a,
+.dsl-prompter-tier-select {
+  min-height: 30px;
+  border: 1px solid #263248;
+  background: #172236;
+  color: #e8eefc;
+  border-radius: 10px;
+  padding: 6px 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dsl-prompter-tier-select {
+  display: none;
+  max-width: 140px;
+}
+
+body[data-draevyn-build-flavor="developer"] .dsl-prompter-tier-select {
+  display: inline-flex;
+}
+
+.dsl-prompter-frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  background: #070a0f;
+}
+
+.dsl-prompter-footer {
+  min-height: 30px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 10px;
+  border-top: 1px solid rgba(38,216,255,.14);
+  background: rgba(11,18,29,.94);
+  color: #95a3ba;
+  font-size: 11px;
+}
+
+.dsl-prompter-attribution {
+  color: #85f7c2;
+  font-weight: 950;
+}
+
+body:not([data-draevyn-attribution-required="true"]) .dsl-prompter-attribution {
+  display: none;
+}
+
+body[data-draevyn-tier="developer"] .dsl-prompter-attribution {
+  display: inline-flex;
+  color: #ffd166;
+}
+
+.dsl-prompter-size-medium .dsl-prompter-panel {
+  width: min(640px, calc(100vw - 24px));
+}
+
+.dsl-prompter-size-large .dsl-prompter-panel {
+  width: min(880px, calc(100vw - 24px));
+}
+
+.dsl-prompter-size-full .dsl-prompter-panel {
+  inset: 10px;
+  width: auto;
+}
+
+html.dsl-output-page .dsl-prompter-toggle,
+html.dsl-output-page .dsl-prompter-panel {
+  display: none !important;
+}
+
+@media (max-width: 820px) {
+  .dsl-prompter-panel {
+    inset: 8px;
+    width: auto;
+    border-radius: 16px;
+  }
+
+  .dsl-prompter-panel-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dsl-prompter-actions {
+    flex-wrap: wrap;
+  }
+
+  .dsl-prompter-actions button,
+  .dsl-prompter-actions a,
+  .dsl-prompter-tier-select {
+    flex: 1 1 auto;
+  }
+
+  .dsl-prompter-toggle {
+    right: 10px;
+    left: 10px;
+    bottom: 72px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-height: 560px) {
+  .dsl-prompter-panel {
+    top: 8px;
+    bottom: 8px;
+  }
+
+  .dsl-prompter-footer {
+    display: none;
+  }
+}

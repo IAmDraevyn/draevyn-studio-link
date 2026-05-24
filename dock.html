@@ -57,7 +57,11 @@
 	}
 
 </style>
-</head>
+		<script>
+			document.documentElement.classList.add("dsl-ui-page", "dsl-dock");
+		</script>
+		<link rel="stylesheet" href="./custom/draevyn/draevyn-vdo-theme.css">
+	</head>
 <body>
 <script>
 function getById(id) {
@@ -289,5 +293,6 @@ document.addEventListener("dragstart", event => {
 	<!-- This image is used when dragging elements -->
 	<img src="./media/favicon-32x32.png" id="dragImage" />
 </div>
+		<script src="./custom/draevyn/draevyn-vdo-patch.js"></script>
 </body>
 </html>

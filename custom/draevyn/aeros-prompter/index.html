@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>[EXOLIN] AEROS Standalone Prompter</title><link rel="stylesheet" href="standalone.css"/></head><body><div class="app"><header class="top"><div><div class="eyebrow">[EXOLIN] AEROS · Standalone Prompter V1</div><h1>AEROS Prompter</h1></div><div class="top-actions"><button id="panelBtn">Panel</button><button id="fullBtn">Fullscreen</button><button id="readerBtn">Reader</button><span id="status">Ready</span></div></header>
+
+    <div class="dsl-addon-bar" id="dslAddonBar">
+      <span id="dslAddonRoom">Room: draevynstudio</span>
+      <span id="dslAddonRole">Role: host</span>
+      <a href="../draevyn-prompt-board.html" id="dslCueBoardLink">Open Cue Board</a>
+      <a href="../draevyn-launch.html" id="dslLauncherLink">Launcher</a>
+    </div><main class="layout"><aside id="panel" class="panel"><div class="panel-head"><strong>Setup</strong><button id="hidePanelBtn">Hide</button></div><label>Title</label><input id="title" value="Standalone Prompter Script"/><label>Script</label><textarea id="script" rows="14">## INTRO
+
+@HOST: Welcome back. This is the standalone AEROS Prompter.
+
+@HOST: This version is for creators using TikTok, Streamlabs, PRISM, StreamYard, or a second browser window.
+
+@ACTION: Test landscape mode, portrait mode, fullscreen, and touch controls.
+
+## CONVERSATION TEST
+
+@HOST: Speaker one starts on the left.
+
+@COHOST: Speaker two starts on the right.
+
+@BREAK: Take a short break here if needed.
+
+@RETURN: Return from break and continue.
+
+## OUTRO
+
+@HOST: End of standalone prompter test.</textarea><div class="grid"><button id="loadBtn" class="primary">Load</button><button id="clearBtn" class="danger">Clear</button></div><label class="file">Import .aeroscript / .aeropack / .txt / .json<input id="importFile" type="file" accept=".aeroscript,.aeropack,.txt,.json,application/json,text/plain"/></label><details open><summary>Export</summary><div class="grid"><button id="exportAero">.aeroscript</button><button id="exportTxt">.txt</button><button id="exportJson">.json</button><button id="copyBtn">Copy</button></div></details><details open><summary>Reader Layout</summary><label>Layout</label><select id="layoutMode"><option value="auto">Auto</option><option value="chat">Chat Flow</option><option value="left">Left Only</option><option value="table">Table Read</option></select><label>Screen Mode</label><select id="screenMode"><option value="landscape">Landscape / Desktop</option><option value="portrait">Portrait / TikTok</option><option value="compact">Compact / Side Window</option></select><label>Speaker Focus</label><select id="speakerFocus"><option value="__all">All Speakers</option></select><div class="checks"><label><input id="showActions" type="checkbox" checked/> Show action notes</label><label><input id="showLegend" type="checkbox" checked/> Show speaker legend</label><label><input id="focusLine" type="checkbox"/> Focus line</label></div></details></aside><section class="reader-panel"><div class="strip"><button id="playBtn" class="primary">Start</button><button id="resetBtn">Reset</button><button id="breakBtn">Break</button><div><label>Speed <span id="speedVal">55</span></label><input id="speed" type="range" min="1" max="180" value="55"/></div><div><label>Font <span id="fontVal">32</span>px</label><input id="font" type="range" min="16" max="96" value="32"/></div><div><label>Spacing <span id="spaceVal">1.35</span></label><input id="space" type="range" min="110" max="230" value="135"/></div></div><div id="legend" class="legend"></div><div class="progress"><div id="progress"></div></div><div id="reader" class="reader"><div class="guide"></div><article id="content" class="content"></article><div class="pad"></div></div><div class="touch"><button id="prevBtn">Prev</button><button id="touchPlay" class="primary">Start</button><button id="nextBtn">Next</button></div></section></main></div><script src="standalone.js"></script>
+  <script src="../draevyn-tier-config.js"></script>
+  <script src="draevyn-prompter-addon.js"></script>
+  <div class="aeros-free-attribution" id="aerosFreeAttribution" title="Free Edition attribution. Upgrade to remove branding.">
+    <span>Standalone Prompter</span>
+    <strong>Powered by AEROS Free</strong>
+  </div>
+
+  <script src="aeros-branding.js"></script>
+</body></html>

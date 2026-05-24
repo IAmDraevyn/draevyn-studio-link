@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Draevyn Prompt Board</title>
+
+  <style>
+    :root {
+      --bg:#070a0f;
+      --panel:#101722;
+      --panel2:#141d2b;
+      --border:#263248;
+      --text:#e8eefc;
+      --muted:#95a3ba;
+      --accent:#26d8ff;
+      --accent2:#85f7c2;
+      --warning:#ffd166;
+      --danger:#ff526d;
+      --radius:18px;
+      --shadow:0 18px 45px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at top left, rgba(38,216,255,.14), transparent 34%),
+        radial-gradient(circle at top right, rgba(133,247,194,.08), transparent 34%),
+        var(--bg);
+      color:var(--text);
+      font-family:Inter, Segoe UI, Roboto, Arial, sans-serif;
+      padding:14px;
+    }
+
+    .app {
+      width:min(1400px,100%);
+      margin:0 auto;
+      display:grid;
+      gap:12px;
+    }
+
+    .hero, .panel {
+      border:1px solid var(--border);
+      background:rgba(16,23,34,.96);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero {
+      padding:16px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      color:var(--accent2);
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    h1 {
+      margin:4px 0 0;
+      font-size:clamp(28px,5vw,56px);
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .status {
+      border:1px solid var(--border);
+      background:#0b111c;
+      border-radius:999px;
+      padding:8px 12px;
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    .layout {
+      display:grid;
+      grid-template-columns:minmax(300px,440px) 1fr;
+      gap:12px;
+      align-items:start;
+    }
+
+    .panel {
+      padding:14px;
+    }
+
+    label {
+      display:block;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin:10px 0 6px;
+    }
+
+    input, textarea, select {
+      width:100%;
+      border:1px solid var(--border);
+      background:#090f18;
+      color:var(--text);
+      border-radius:12px;
+      padding:10px;
+      font:inherit;
+      outline:none;
+    }
+
+    textarea {
+      min-height:260px;
+      resize:vertical;
+      line-height:1.45;
+      font-family:Consolas, Cascadia Mono, monospace;
+    }
+
+    button {
+      border:1px solid var(--border);
+      background:#172236;
+      color:var(--text);
+      border-radius:12px;
+      min-height:40px;
+      padding:10px 12px;
+      font:inherit;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    button:hover {
+      border-color:var(--accent);
+      background:#1b2a43;
+    }
+
+    button.primary {
+      background:linear-gradient(180deg,#0e8fb0,#096c88);
+      border-color:#2bdcff;
+      color:#eaffff;
+    }
+
+    button.warning {
+      background:#2a210d;
+      border-color:rgba(255,209,102,.5);
+      color:var(--warning);
+    }
+
+    .button-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .current-card {
+      min-height:420px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:28px;
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      background:
+        radial-gradient(circle at top, rgba(38,216,255,.10), transparent 42%),
+        rgba(5,9,15,.92);
+    }
+
+    .speaker {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid var(--accent);
+      background:rgba(38,216,255,.12);
+      color:var(--accent2);
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:14px;
+      font-weight:950;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:16px;
+    }
+
+    .cue {
+      max-width:1000px;
+      font-size:clamp(30px,6vw,84px);
+      line-height:1.04;
+      font-weight:900;
+      letter-spacing:-.045em;
+    }
+
+    .next {
+      margin-top:22px;
+      color:var(--muted);
+      font-size:clamp(16px,2vw,24px);
+      line-height:1.35;
+    }
+
+    .timeline {
+      margin-top:12px;
+      display:grid;
+      gap:8px;
+      max-height:320px;
+      overflow:auto;
+    }
+
+    .line {
+      border:1px solid var(--border);
+      background:#0b111c;
+      border-radius:12px;
+      padding:10px;
+      color:var(--muted);
+      cursor:pointer;
+    }
+
+    .line.active {
+      border-color:var(--accent);
+      background:rgba(38,216,255,.12);
+      color:var(--text);
+    }
+
+    .line b {
+      color:var(--accent2);
+    }
+
+    .note {
+      color:var(--muted);
+      line-height:1.5;
+      font-size:13px;
+      margin-top:10px;
+    }
+
+    @media (max-width:900px) {
+      .hero, .layout { grid-template-columns:1fr; }
+      .current-card { min-height:360px; }
+    }
+  
+
+    /* Pass 02 scaling fix */
+    body.role-guest {
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    body.role-guest .app {
+      height: calc(100vh - 20px);
+      grid-template-rows: auto 1fr;
+    }
+
+    body.role-guest .layout {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      height: 100%;
+    }
+
+    body.role-guest .layout > .panel {
+      min-height: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.role-guest .current-card {
+      flex: 1;
+      min-height: 0;
+      height: auto;
+      padding: clamp(18px, 4vw, 44px);
+    }
+
+    body.role-guest .speaker {
+      font-size: clamp(13px, 1.8vw, 22px);
+      margin-bottom: clamp(10px, 2vh, 24px);
+    }
+
+    body.role-guest .cue {
+      font-size: clamp(34px, 7.8vw, 118px);
+      max-width: min(1180px, 96vw);
+    }
+
+    body.role-guest .next {
+      font-size: clamp(17px, 2.2vw, 34px);
+      max-width: min(980px, 92vw);
+    }
+
+    body.role-guest .timeline {
+      max-height: 24vh;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      overflow: auto;
+    }
+
+    body.role-guest .hero {
+      padding: 12px 16px;
+    }
+
+    body.role-guest h1 {
+      font-size: clamp(26px, 4vw, 48px);
+    }
+
+    body.role-host .layout {
+      grid-template-columns: minmax(320px, 430px) minmax(0, 1fr);
+    }
+
+    body.role-host .current-card {
+      min-height: 52vh;
+    }
+
+    @media (max-width: 900px) {
+      body.role-host .layout,
+      body.role-guest .layout {
+        grid-template-columns: 1fr;
+      }
+
+      body.role-guest {
+        overflow: auto;
+      }
+
+      body.role-guest .app {
+        height: auto;
+      }
+
+      body.role-guest .current-card {
+        min-height: 56vh;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 8px;
+      }
+
+      .hero {
+        padding: 12px;
+      }
+
+      body.role-guest .cue {
+        font-size: clamp(30px, 13vw, 70px);
+      }
+
+      body.role-guest .timeline {
+        max-height: 30vh;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Draevyn Studio Link</div>
+        <h1>Prompt Board</h1>
+      </div>
+      <div class="status" id="status">Loading...</div>
+    </section>
+
+    <section class="layout">
+      <aside class="panel" id="hostPanel">
+        <label for="roomId">Room</label>
+        <input id="roomId" type="text" />
+
+        <label for="scriptInput">Prompt Script</label>
+        <textarea id="scriptInput">## INTRO
+
+@HOST: Welcome everyone. We are live in Draevyn Studio.
+
+@GUEST1: Guest one, this is your opening cue.
+
+@GUEST2: Guest two, wait for your turn here.
+
+@ACTION: Switch to the main discussion scene.
+
+## MAIN
+
+@HOST: Ask the first question.
+
+@GUEST1: Answer first.
+
+@GUEST2: Add your response after guest one.
+
+@ACTION: Prepare the OBS clean feed.
+
+## OUTRO
+
+@HOST: Wrap the segment and thank everyone.</textarea>
+
+        <div class="button-grid">
+          <button class="primary" id="loadBtn">Load Script</button>
+          <button id="prevBtn">Previous</button>
+          <button id="nextBtn">Next</button>
+          <button class="warning" id="copyGuestPromptBtn">Copy Guest Prompt Link</button>
+        </div>
+
+        <p class="note">
+          Pass 01 syncs same-browser windows using BroadcastChannel/localStorage.
+          True remote guest synchronization should be connected to VDO room data channels in the next integration pass.
+        </p>
+      </aside>
+
+      <section class="panel">
+        <div class="current-card">
+          <div class="speaker" id="speakerLabel">READY</div>
+          <div class="cue" id="cueText">Load a script to begin.</div>
+          <div class="next" id="nextCue">Next cue will appear here.</div>
+        </div>
+
+        <div class="timeline" id="timeline"></div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const params = new URLSearchParams(location.search);
+      const room = sanitizeRoom(params.get("room") || "draevynstudio");
+      const role = params.get("role") || "guest";
+      const storageKey = `draevyn.prompt.${room}`;
+      const channel = "BroadcastChannel" in window ? new BroadcastChannel(`draevyn-prompt-${room}`) : null;
+
+      const state = {
+        room,
+        role,
+        lines: [],
+        index: 0
+      };
+
+      document.body.classList.add(role === "host" ? "role-host" : "role-guest");
+
+      const els = {
+        status: document.getElementById("status"),
+        hostPanel: document.getElementById("hostPanel"),
+        roomId: document.getElementById("roomId"),
+        scriptInput: document.getElementById("scriptInput"),
+        loadBtn: document.getElementById("loadBtn"),
+        prevBtn: document.getElementById("prevBtn"),
+        nextBtn: document.getElementById("nextBtn"),
+        copyGuestPromptBtn: document.getElementById("copyGuestPromptBtn"),
+        speakerLabel: document.getElementById("speakerLabel"),
+        cueText: document.getElementById("cueText"),
+        nextCue: document.getElementById("nextCue"),
+        timeline: document.getElementById("timeline")
+      };
+
+      function sanitizeRoom(value) {
+        return String(value || "").trim().replace(/[^a-zA-Z0-9]/g, "") || "draevynstudio";
+      }
+
+      function parseScript(text) {
+        return String(text || "")
+          .split(/\r?\n/)
+          .map(line => line.trim())
+          .filter(Boolean)
+          .filter(line => !line.startsWith("##"))
+          .map(line => {
+            const match = line.match(/^@([^:]+):\s*(.*)$/);
+            if (!match) return { speaker: "NOTE", text: line };
+            return { speaker: match[1].trim().toUpperCase(), text: match[2].trim() };
+          })
+          .filter(line => line.text);
+      }
+
+      function saveAndBroadcast() {
+        const payload = {
+          room: state.room,
+          index: state.index,
+          lines: state.lines,
+          updatedAt: Date.now()
+        };
+
+        localStorage.setItem(storageKey, JSON.stringify(payload));
+        channel?.postMessage(payload);
+        render();
+      }
+
+      function loadFromStorage() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+          if (saved && Array.isArray(saved.lines)) {
+            state.lines = saved.lines;
+            state.index = saved.index || 0;
+          }
+        } catch {}
+        render();
+      }
+
+      function render() {
+        els.status.textContent = `${role.toUpperCase()} · Room ${room}`;
+
+        document.body.classList.toggle("role-guest", role !== "host");
+        document.body.classList.toggle("role-host", role === "host");
+
+        if (role !== "host") {
+          els.hostPanel.hidden = true;
+        } else {
+          els.hostPanel.hidden = false;
+        }
+
+        els.roomId.value = room;
+
+        const current = state.lines[state.index];
+        const next = state.lines[state.index + 1];
+
+        els.speakerLabel.textContent = current ? current.speaker : "READY";
+        els.cueText.textContent = current ? current.text : "Waiting for host prompts.";
+        els.nextCue.textContent = next ? `Next: ${next.speaker}: ${next.text}` : "No next cue.";
+
+        els.timeline.innerHTML = state.lines.map((line, index) => `
+          <div class="line ${index === state.index ? "active" : ""}" data-index="${index}">
+            <b>${escapeHtml(line.speaker)}</b>: ${escapeHtml(line.text)}
+          </div>
+        `).join("");
+
+        els.timeline.querySelectorAll(".line").forEach(item => {
+          item.addEventListener("click", () => {
+            if (role !== "host") return;
+            state.index = Number(item.dataset.index);
+            saveAndBroadcast();
+          });
+        });
+      }
+
+      function escapeHtml(value) {
+        const div = document.createElement("div");
+        div.textContent = String(value ?? "");
+        return div.innerHTML;
+      }
+
+      function loadScript() {
+        state.lines = parseScript(els.scriptInput.value);
+        state.index = 0;
+        saveAndBroadcast();
+      }
+
+      function next() {
+        if (!state.lines.length) return;
+        state.index = Math.min(state.lines.length - 1, state.index + 1);
+        saveAndBroadcast();
+      }
+
+      function prev() {
+        if (!state.lines.length) return;
+        state.index = Math.max(0, state.index - 1);
+        saveAndBroadcast();
+      }
+
+      async function copyGuestPromptLink() {
+        const url = new URL(location.href);
+        url.searchParams.set("room", room);
+        url.searchParams.set("role", "guest");
+        await navigator.clipboard.writeText(url.href);
+        alert("Guest prompt link copied.");
+      }
+
+      els.loadBtn.addEventListener("click", loadScript);
+      els.nextBtn.addEventListener("click", next);
+      els.prevBtn.addEventListener("click", prev);
+      els.copyGuestPromptBtn.addEventListener("click", copyGuestPromptLink);
+
+      document.addEventListener("keydown", event => {
+        if (role !== "host") return;
+        if (event.key === "ArrowRight") next();
+        if (event.key === "ArrowLeft") prev();
+      });
+
+      channel?.addEventListener("message", event => {
+        if (!event.data || event.data.room !== room) return;
+        state.lines = event.data.lines || [];
+        state.index = event.data.index || 0;
+        render();
+      });
+
+      window.addEventListener("storage", event => {
+        if (event.key === storageKey) loadFromStorage();
+      });
+
+      loadFromStorage();
+    })();
+  </script>
+</body>
+</html>
